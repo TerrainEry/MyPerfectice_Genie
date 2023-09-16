@@ -6,5 +6,5 @@
     To modify or redistribute, kindly follow the license agreement strictly.
 */
 
-chrome.devtools.panels.create('Code-Extractor', null, 'panel.html', null);
+chrome.devtools.panels.create('MyPerfectice-Genie', null, 'panel.html', null);
 console.log("This is devtools script!")

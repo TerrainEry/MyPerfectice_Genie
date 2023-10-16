@@ -18,11 +18,13 @@ function runFunction() {
         chrome.tabs.create({ url: githubLink.href });
     });
 
-    // Add a listener to the button click event
-    document.getElementById("button").addEventListener("click", sendKeys);
+    // Add a listener to the start button click event
+    document.getElementById("button").addEventListener("click", startAnswering);
+
+    document.getElementById('inter-change').addEventListener('click', changeInterface);
 }
 
-function sendKeys() {
+function startAnswering() {
     // Get the current tab details
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         var activeTab = tabs[0];
@@ -32,20 +34,26 @@ function sendKeys() {
             // Get the URL of the current tab
             var currentUrl = activeTab.url;
 
-            if (currentUrl.includes("take-test")) {
-                // Replace 'take-test' with 'learning-test' in the URL
-                var newUrl = currentUrl.replace('take-test', 'learning-test');
+            if (currentUrl.includes("learning-test")) {
 
-                // Update the URL of the current tab and reload the page
-                chrome.tabs.update(activeTab.id, { url: newUrl }, function () {
-                    // The page is now reloaded, so send the message
-                    chrome.tabs.sendMessage(activeTab.id, { msg: "start" });
-                });
-            }
-            else {
-                // The page is already loaded, so send the message
                 chrome.tabs.sendMessage(activeTab.id, { msg: "start" });
             }
         }
     });
+}
+
+function changeInterface() {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        var activeTab = tabs[0];
+
+        if (activeTab) {
+            var currentUrl = activeTab.url;
+
+            if (currentUrl.includes('take-test')) {
+                var newUrl = currentUrl.replace('take-test', 'learning-test');
+
+                chrome.tabs.update(activeTab.id, { url: newUrl })
+            }
+        }
+    })
 }

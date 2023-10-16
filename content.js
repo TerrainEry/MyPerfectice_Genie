@@ -8,7 +8,8 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
     if (message.quesType == "mcq") {
       let ansKey = message.keys;
-      attemptMcq(ansKey);
+      console.log(ansKey + 1)
+      setTimeout(attemptMcq(ansKey),2000)
     }
   }
 
@@ -33,30 +34,27 @@ function attemptCoding(ansKey) {
   }
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function attemptMcq(ansKey) {
-  setTimeout(function () {
+  const pageWrapper = document.querySelector("#page-wrapper");
+  setTimeout(async () => {
+    var checkBox = document.querySelector(`.question-answers > div:nth-child(${ansKey + 1}) > div > label`)
+    const saveAndNextButton = pageWrapper.querySelector("div.d-block.d-lg-none.fixed-bottom.ng-star-inserted a.btn-primary");
 
-    const checkBox = document.querySelector(`#page-wrapper > p-student > app-learning-test > div.adaptive-question > div > div > div.adaptive-question-box.bg-white.p-1.ng-star-inserted > div:nth-child(2) > mcq-question > div > div.question-answers.mb-0 > div:nth-child(${ansKey + 1}) > div > div > div > label > span`)
-
-    if(checkBox)
-    {
-      checkBox.click()
-    }
-    else
-    {
-      document.querySelector(`div.question-answers.mb-0 > div:nth-child(${ansKey + 1}) > div > div > div > label > span.checkmark`).click()
-    }
-
-    const pageWrapper = document.querySelector("#page-wrapper");
-
-    const saveAndNextButton = pageWrapper.querySelector(
-      "div.d-block.d-lg-none.fixed-bottom.ng-star-inserted a.btn-primary"
-    );
-
-    if (saveAndNextButton) {
+    if (checkBox) {
+      checkBox.click();
       saveAndNextButton.click();
     }
-  }, 3000);
+    else {
+      checkBox = document.querySelector(`.question-answers > div:nth-child(${ansKey + 1}) > div > label`);
+      checkBox.click();
+      saveAndNextButton.click();
+    }
+  }, 1000)
+
 
   setTimeout(() => {
     const nextbtn = document.querySelector(
@@ -71,5 +69,11 @@ function attemptMcq(ansKey) {
     } else {
       nextbtn.click();
     }
-  }, 4000);
+  }, 2000)
+
+  const attemptedQues = document.querySelector(`.count > span:nth-child(1)`).innerText
+  const TotalQues = document.querySelector(`.count > span:nth-child(3)`).innerText
+  if (attemptedQues == TotalQues) {
+    setTimeout(() => { document.querySelector('.finish-btn > a').click() }, 1000)
+  }
 }

@@ -1,3 +1,5 @@
+// code mirror work in progress
+
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.msg == "Data is getting send") {
         let ansKey = message.keys.solution;
@@ -35,7 +37,6 @@ function waitForCodeMirrorReady(callback) {
 }
 
 function getCodeMirrorInstance() {
-    // Replace 'yourCodeMirrorElement' with the actual selector of the CodeMirror element
     const codeMirrorElement = document.querySelector('.CodeMirror');
 
     if (codeMirrorElement && codeMirrorElement.CodeMirror) {

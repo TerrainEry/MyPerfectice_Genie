@@ -1,20 +1,35 @@
+let timeOut1 = null;
+let timeOut2 = null;
+
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (message.msg == "Data is getting send") {
     if (message.quesType == "coding") {
       let ansKey = message.keys.solution;
       console.log(ansKey);
+      console.log("Started Answering, (if not working then refresh the page)");
       setTimeout(attemptCoding(ansKey), 3000)
     }
 
     if (message.quesType == "mcq") {
       let ansKey = message.keys;
       console.log(ansKey + 1)
-      setTimeout(attemptMcq(ansKey),2000)
+      setTimeout(attemptMcq(ansKey, true), 2000)
     }
   }
+  else if (message.msg == "Not getting any data") {
+    console.log(message.msg + " " + "Stopped Answering");
+    clearTimeout(timeOut1);
+    clearTimeout(timeOut2);
+  }
+
 
   if (message.msg == "start") {
     chrome.runtime.sendMessage({ msg: "startPanel" });
+  }
+
+  if (message.msg == "stop") {
+    chrome.runtime.sendMessage({ msg: "stopPanel" });
+    // setTimeout(attemptMcq(0, false), 2000)
   }
 });
 
@@ -40,7 +55,7 @@ function sleep(ms) {
 
 function attemptMcq(ansKey) {
   const pageWrapper = document.querySelector("#page-wrapper");
-  setTimeout(async () => {
+  timeOut1 = setTimeout(async () => {
     var checkBox = document.querySelector(`.question-answers > div:nth-child(${ansKey + 1}) > div > label`)
     const saveAndNextButton = pageWrapper.querySelector("div.d-block.d-lg-none.fixed-bottom.ng-star-inserted a.btn-primary");
 
@@ -56,7 +71,7 @@ function attemptMcq(ansKey) {
   }, 1000)
 
 
-  setTimeout(() => {
+  timeOut2 = setTimeout(() => {
     const nextbtn = document.querySelector(
       "#page-wrapper > p-student > app-learning-test > div.adaptive-question > div > div > div.d-block.d-lg-none.fixed-bottom.ng-star-inserted>div.no-gutters> div:nth-child(2)> a.btn.btn-primary"
     );

@@ -19,8 +19,12 @@ function runFunction() {
     });
 
     // Add a listener to the start button click event
-    document.getElementById("button").addEventListener("click", startAnswering);
+    document.getElementById("start-button").addEventListener("click", startAnswering);
 
+    // Add a listener for stop button click event
+    document.getElementById("stop-button").addEventListener("click", stopAnswering);
+
+    // Add a listener to the change interface button click event
     document.getElementById('inter-change').addEventListener('click', changeInterface);
 }
 
@@ -56,4 +60,22 @@ function changeInterface() {
             }
         }
     })
+}
+
+function stopAnswering() {
+    // Get the current tab details
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        var activeTab = tabs[0];
+
+        // Check if the activeTab exists
+        if (activeTab) {
+            // Get the URL of the current tab
+            var currentUrl = activeTab.url;
+
+            if (currentUrl.includes("learning-test")) {
+
+                chrome.tabs.sendMessage(activeTab.id, { msg: "stop" });
+            }
+        }
+    });
 }

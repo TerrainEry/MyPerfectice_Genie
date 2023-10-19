@@ -3,7 +3,6 @@
   "name": "MyPerfectice Genie",
   "version": "0.0.2",
   "devtools_page": "devtools.html",
-
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": "icon.png",
@@ -11,18 +10,27 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
     }
   ],
   "icons": {
     "128": "icon.png"
   },
-
   "background": {
     "service_worker": "background.js"
   },
-
-  "permissions": ["scripting", "tabs", "activeTab","webRequest"],
-  "host_permissions": ["https://*/"]
+  "permissions": [
+    "scripting",
+    "tabs",
+    "activeTab",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "https://*/"
+  ]
 }

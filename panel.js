@@ -93,6 +93,18 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       });
     });
   }
+  else if (message.msg == "stopPanel") {
+    chrome.tabs.query(
+      { active: true, currentWindow: true },
+      function (tabs) {
+        var activeTab = tabs[0];
+        //Sending message to the active tab
+        chrome.tabs.sendMessage(activeTab.id, {
+          msg: "Not getting any data",
+        });
+      }
+    );
+  }
 });
 
 function isJsonString(str) {

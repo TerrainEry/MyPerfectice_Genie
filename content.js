@@ -7,6 +7,26 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       let ansKey = message.keys.solution;
       console.log(ansKey);
       console.log("Started Answering, (if not working then refresh the page)");
+
+      ///// auto select langusge
+      // var languageSelector = document.querySelector(`.coding-window > .coding-window-title > div > :nth-child(2) > div > ul`)
+      // if (pLanguage == "cpp") {
+      //   languageSelector.options[0].selected = true
+      // }
+
+      // if (pLanguage == "java") {
+      //   languageSelector.options[1].selected = true
+      // }
+
+      // if (pLanguage == "python") {
+      //   console.log("python slsasd")
+      //   setTimeout(() => {
+      //     // languageSelector.querySelector(`select`).options[2].selected = true
+      //     languageSelector.querySelector(`select`).options[2].selected = true
+      //     console.log(pLanguage)
+      //   }, 1000)
+      // }
+
       setTimeout(attemptCoding(ansKey), 3000)
     }
 
@@ -90,5 +110,7 @@ function attemptMcq(ansKey) {
   const TotalQues = document.querySelector(`.count > span:nth-child(3)`).innerText
   if (attemptedQues == TotalQues) {
     setTimeout(() => { document.querySelector('.finish-btn > a').click() }, 1000)
+    clearTimeout(timeOut1);
+    clearTimeout(timeOut2);
   }
 }

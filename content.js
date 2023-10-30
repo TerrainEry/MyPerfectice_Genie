@@ -1,6 +1,14 @@
 let timeOut1 = null;
 let timeOut2 = null;
 
+let timeOut3 = null;
+let timeOut4 = null;
+let timeOut5 = null;
+let timeOut6 = null;
+let timeOut7 = null;
+let timeOut8 = null;
+let selectedLevel = null
+
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (message.msg == "Data is getting send") {
     if (message.quesType == "coding") {
@@ -24,14 +32,79 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
 
   if (message.msg == "start") {
+    // selectedLevel = message.slevel
+
+    // for (let i = 1; i < 13; i++) {
+    //   window.scrollTo({
+    //     top: document.body.scrollHeight,
+    //     behavior: 'smooth'
+    //   });
+    // }
+
+    // const alltests = document.querySelectorAll(`.ng-star-inserted > .details_page_new__bg > div > div > div > #syllabus > div:nth-child(2) > div > div`)
+
+    // const availableViews = document.querySelectorAll(`.ng-star-inserted > .details_page_new__bg > div > div > div > #syllabus > div:nth-child(2) > div > div > div > div:nth-child(2) > div > div:nth-child(2) > div > a:nth-child(2)`).length
+
+    // const levelCheck = alltests[availableViews].querySelector(`div > .text-truncate > div > div:nth-child(1) > :nth-child(3) > div:nth-child(3)`).innerText
+
+    // if (levelCheck == selectedLevel) {
+    //   const resumeBtnHome = document.querySelector(`.ng-star-inserted > .details_page_new__bg > div > div > div:nth-child(2) > div > :first-child > a`)
+
+    //   resumeBtnHome.click()
+
+    //   document.querySelector(`.take-asses-btn > a`).click()
+
+    //   document.querySelector(`.asses-about-area > :nth-child(2) > :nth-child(2)`).click()
+
+    //   chrome.runtime.sendMessage({ msg: "startPanel" });
+    // }
     chrome.runtime.sendMessage({ msg: "startPanel" });
   }
 
   if (message.msg == "stop") {
     chrome.runtime.sendMessage({ msg: "stopPanel" });
-    // setTimeout(attemptMcq(0, false), 2000)
+    clearTimeout(timeOut3);
+    clearTimeout(timeOut4);
+    clearTimeout(timeOut5);
+    clearTimeout(timeOut6);
+    clearTimeout(timeOut7);
+    clearTimeout(timeOut8);
   }
 });
+
+function openTest() {
+  // for (let i = 1; i < 13; i++) {
+  //   window.scrollTo({
+  //     top: document.body.scrollHeight,
+  //     behavior: 'smooth'
+  //   });
+  // }
+
+  // const alltests = document.querySelectorAll(`.ng-star-inserted > .details_page_new__bg > div > div > div > #syllabus > div:nth-child(2) > div > div`)
+
+  // const availableViews = document.querySelectorAll(`.ng-star-inserted > .details_page_new__bg > div > div > div > #syllabus > div:nth-child(2) > div > div > div > div:nth-child(2) > div > div:nth-child(2) > div > a:nth-child(2)`).length
+
+  // const levelCheck = alltests[availableViews].querySelector(`div > .text-truncate > div > div:nth-child(1) > :nth-child(3) > div:nth-child(3)`).innerText
+
+  // if (levelCheck == selectedLevel) {
+  var resumeBtnHome = null
+  timeOut3 = setTimeout(() => {
+    resumeBtnHome = document.querySelector(`.ng-star-inserted > .details_page_new__bg > div > div > div:nth-child(2) > div > :first-child > a`)
+  }, 1000)
+
+  timeOut4 = setTimeout(() => {
+    resumeBtnHome.click()
+  }, 2000)
+
+  timeOut5 = setTimeout(() => {
+    document.querySelector(`.take-asses-btn > a`).click()
+  }, 3000)
+
+  timeOut6 = setTimeout(() => {
+    document.querySelector(`.asses-about-area > :nth-child(2) > :nth-child(2)`).click()
+  }, 4000)
+  // }
+}
 
 function attemptCoding(ansKey) {
   if (navigator.clipboard) {
@@ -89,6 +162,17 @@ function attemptMcq(ansKey) {
   const attemptedQues = document.querySelector(`.count > span:nth-child(1)`).innerText
   const TotalQues = document.querySelector(`.count > span:nth-child(3)`).innerText
   if (attemptedQues == TotalQues) {
-    setTimeout(() => { document.querySelector('.finish-btn > a').click() }, 1000)
+    clearTimeout(timeOut1);
+    clearTimeout(timeOut2);
+    setTimeout(() => {
+      document.querySelector('.finish-btn > a').click();
+      timeOut7 = setTimeout(() => {
+        document.querySelector(`attempt-overview > div > div > :nth-child(3) > a`).click();
+      }, 2000)
+
+      timeOut8 = setTimeout(() => {
+        openTest()
+      }, 4000)
+    }, 1000)
   }
 }

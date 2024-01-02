@@ -40,6 +40,21 @@
             font-weight: bold;
             margin: 5px;
         }
+
+        select {
+            border: none;
+            background-color: rgb(255, 198, 129);
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background-color: rgba(255, 198, 129, 0.8);
+        }
     </style>
 </head>
 
@@ -61,6 +76,16 @@
         <li><b>NOTE : </b>After finishing test if your marks is not updated then click on 'resume' button just below
             'Take Assessment' button and complete the test again.</li>
     </ul>
+    <!-- <div class="lvl">
+        <span>Select Level</span>
+        <select name="" id="level-selector">
+            <option value="level 1">Level 1</option>
+            <option value="level 2">Level 2</option>
+            <option value="level 3">Level 3</option>
+            <option value="level 4">Level 4</option>
+            <option value="level 5">Level 5</option>
+        </select>
+    </div> -->
     <div class="btns">
         <button class="btn" type="submit" id="start-button">START</button>
         <button class="btn" id="stop-button">STOP</button>

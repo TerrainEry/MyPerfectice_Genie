@@ -18,17 +18,20 @@ function runFunction() {
         chrome.tabs.create({ url: githubLink.href });
     });
 
+    var slevel = document.getElementById('level-selector').value
+
     // Add a listener to the start button click event
-    document.getElementById("start-button").addEventListener("click", startAnswering);
+    document.getElementById("start-button").addEventListener("click", startAnswering(slevel));
 
     // Add a listener for stop button click event
     document.getElementById("stop-button").addEventListener("click", stopAnswering);
 
     // Add a listener to the change interface button click event
     document.getElementById('inter-change').addEventListener('click', changeInterface);
+
 }
 
-function startAnswering() {
+function startAnswering(slevel) {
     // Get the current tab details
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         var activeTab = tabs[0];
@@ -40,7 +43,7 @@ function startAnswering() {
 
             if (currentUrl.includes("learning-test")) {
 
-                chrome.tabs.sendMessage(activeTab.id, { msg: "start" });
+                chrome.tabs.sendMessage(activeTab.id, { msg: "start", level: slevel });
             }
         }
     });

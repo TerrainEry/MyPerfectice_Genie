@@ -86,7 +86,6 @@ function openTest() {
 
   // const levelCheck = alltests[availableViews].querySelector(`div > .text-truncate > div > div:nth-child(1) > :nth-child(3) > div:nth-child(3)`).innerText
 
-  // if (levelCheck == selectedLevel) {
   var resumeBtnHome = null
   timeOut3 = setTimeout(() => {
     resumeBtnHome = document.querySelector(`.ng-star-inserted > .details_page_new__bg > div > div > div:nth-child(2) > div > :first-child > a`)
@@ -103,7 +102,20 @@ function openTest() {
   timeOut6 = setTimeout(() => {
     document.querySelector(`.asses-about-area > :nth-child(2) > :nth-child(2)`).click()
   }, 4000)
-  // }
+
+  // chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+  //   var activeTab = tabs[0];
+
+  //   if (activeTab) {
+  //     var currentUrl = activeTab.url;
+
+  //     if (currentUrl.includes('take-test')) {
+  //       var newUrl = currentUrl.replace('take-test', 'learning-test');
+
+  //       chrome.tabs.update(activeTab.id, { url: newUrl })
+  //     }
+  //   }
+  // }) 
 }
 
 function attemptCoding(ansKey) {

@@ -2,12 +2,11 @@
 
 ---
 
-This repository contains a browser extension and instructions for extracting code from MyPerfectIce exams. Follow the steps below to use the extension and extract code effortlessly.
-
-## This extension is only for MyPerfectice Novice-to-Ninja tests
+This repository contains a browser extension and instructions for completing tests on Myperfectice. Follow the steps below to use the extension and extract code effortlessly.
 
 ## Installation
 
+### Prerequisites for Novice to Ninja(N2N) Exam
 1. Install the `Absolute Enable Right Click & Copy` browser extension from the [Microsoft Edge Add-ons Store](https://microsoftedge.microsoft.com/addons/detail/absolute-enable-right-cli/enkbbdhdmbpfohfkfmdmjkpmolkbelgl) or [Chrome Web Store](https://chrome.google.com/webstore/detail/absolute-enable-right-cli/jdocbkpgdakpekjlhemmfcncgdjeiika).
 
 2. Enable the extension on the MyPerfectIce website.
